@@ -13,7 +13,7 @@ no warnings "uninitialized";  # Don't warn about unitialized variables#
 use strict 'vars';  # Force all variables to have defined scope
 
 #change this if you want to save your file somewhere
-my $repdir = 'C:\Users\t-dtptw6\Documents\GitHub\QR-Code-Generator-Perl\\'; 
+my $repdir = getdcwd().'\Documents\Github\QR-Code-Generator-Perl\\'; 
 
 our $hostName;
 our $modelNum;
