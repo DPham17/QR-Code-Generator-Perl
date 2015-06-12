@@ -13,7 +13,7 @@ no warnings "uninitialized";  # Don't warn about unitialized variables#
 use strict 'vars';  # Force all variables to have defined scope
 
 #change this if you want to save your file somewhere
-my $repdir = "S:\\"; 
+my $repdir = 'C:\Users\t-dtptw6\Documents\GitHub\QR-Code-Generator-Perl\\'; 
 
 our $hostName;
 our $modelNum;
@@ -30,7 +30,7 @@ my $report_file = "QR_Lables.tex";
 my $run;
 my $count = 0;
 
-my $data = 'S:\Latex\data.txt';
+my $data = $repdir."data.txt";
 open(my $df, "<", $data) or die "Could not open file '$data' $!";
 
 print "\nThe Generator Thingy\n";
