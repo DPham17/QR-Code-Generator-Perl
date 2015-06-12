@@ -99,7 +99,7 @@ print $fh <<"END";
 			\\begin{pspicture}(0.85in, 0.95in)
 				\\psbarcode{$qrAddress}{height=0.85 width=0.85}{qrcode}
 			\\end{pspicture}
-		\\end{minipage}}\\hspace{0.1cm}% adjust for horizontal spacing
+		\\end{minipage}}\\hspace{0.1cm}\\vspace{0.5cm}
 		\\fbox{\\begin{minipage}[c]{0.7\\textwidth}
 			\\begin{tabular}{l l}\\\\
 				\\textbf{$hostName} ($modelNum)\\\\
@@ -119,6 +119,7 @@ print $fh <<"END";
 			\\end{tabular}
 		\\end{minipage}}
 	\\end{minipage}}
+	\\hdashrule[0.5ex]{8cm}{1pt}{5pt 10pt}\\\\
 END
 }
 
@@ -129,6 +130,7 @@ print $fh <<'END';
 \usepackage[utf8]{inputenc}% inputenc for encoding to utf8
 \usepackage{auto-pst-pdf}% auto-pst-pdf converts pst to pdf
 \usepackage{pst-barcode}% pst-barcode try implement QR code
+\usepackage{dashrule}% dash lines
 \usepackage[paper=a4paper,left=0.7cm,right=0.7cm,top=0.7cm,bottom=0.7cm,noheadfoot] {geometry}% geometry for margins
 
 \setlength\parindent{0pt}
@@ -169,7 +171,7 @@ my $logfile = $file_prefix . ".log";
 my $pdffile = $file_prefix . ".pdf";
 
 system('del ' . $auxfile . ' ' .  $logfile);
-system('del ' . $filename); #comment this out if you want to keep the .tex file
+#system('del ' . $filename); #comment this out if you want to keep the .tex file
 $filename="$repdir$report_name";
 move($pdffile,$filename); # Renames the file
 
