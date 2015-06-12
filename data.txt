@@ -1,0 +1,25 @@
+rt15desktop
+Latitude E6450
+FXTWK32
+3
+34:E6:D7:36:29:CD (TX)
+60:57:18:70:AE:CC (WL)
+60:57:18:70:AE:D0 (BT)
+
+
+rt31desktop
+Latitude E7250
+FZTNK32
+3
+34:E6:D7:36:96:03 (TX)
+60:57:18:68:89:9A (WL)
+60:57:18:68:89:9E (BT)
+
+
+rt30desktop
+Latitude E5550
+42PYK32
+3
+34:E6:D7:38:7D:D8 (TX)
+60:57:18:6F:EE:51 (WL)
+60:57:18:6F:EE:55 (BT)
