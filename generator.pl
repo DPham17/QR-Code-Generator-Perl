@@ -8,12 +8,14 @@ use DBI;  # Postgres communication functions
 use File::Temp qw/tempfile/;
 use File::Copy;
 use Cwd;
+use Cwd 'abs_path';
 use warnings;
 no warnings "uninitialized";  # Don't warn about unitialized variables#
 use strict 'vars';  # Force all variables to have defined scope
 
 #change this if you want to save your file somewhere
-my $repdir = getdcwd().'\Documents\Github\QR-Code-Generator-Perl\\'; 
+#my $repdir = getdcwd().'\Documents\Github\QR-Code-Generator-Perl\\'; 
+my $repdir = substr(abs_path($0), 0, -12);
 
 our $hostName;
 our $modelNum;
@@ -45,26 +47,18 @@ sub info{
 	#print "What is the Service Tag?  ";
 	$tag = <$df>;
 
-#	print "Is there any MAC address? (y/n)  ";
-#	$start = <STDIN>;
-#	if ($start =~ /y/i){
-#		extra();
-#	}
-	
 	my $a = 1;
 	my $line;
 	my $check = <$df>;
 	$num = 0;
-	print "\n$check -----\n";
 	while($a <= $check){
 		$line = <$df>;
 		chomp $line;
 			$num++;
 			$mac[$a] = $line;
-			print "$mac[$a] \n";
 			$a++;
 	}
-	$check = <$df>; # This reads in the 2 newlines so the file is reday for the next run
+	$check = <$df>; # This reads in the 2nd newlines so the file is reday for the next run
 
 	#remove those pesky \n
 	chomp $hostName;
@@ -72,23 +66,6 @@ sub info{
 	chomp $tag;
 
 	$qrAddress = "https://itweb.mst.edu/auth-cgi-bin/cgiwrap/netdb/view-host.pl?host=".$hostName.".managed.mst.edu";
-}
-
-sub extra{
-	#print "\nHow many MAC address are there? (up to 10)  ";
-	#$num = <>;
-	print "Use these format:\n";
-	print "Address: 00:00:00:00:00:00 \n";
-	print "Name (use abbreviation): WL \n";
-	for ($a=1; $a <= $num; $a++){
-		print "\nMAC address #$a:  ";
-		$mac[$a] = <>;
-		print "Abbreviation of the address:  ";
-		$name[$a] = <>;
-		chomp $mac[$a];
-		chomp $name[$a];
-	}
-	return 1;
 }
 
 sub body{
@@ -143,13 +120,9 @@ END
 
 do{ # This is the loop of the program
 	$count++;
-	#print "---------------------------->\n\n";
-	#print "Run number $count \n\n";
 	info();
 	body();
-	#print "\n--> Do another QR generator? (y/n)  ";
-	#$run = <STDIN>;
-	print "\n\n";
+	#print "\n\n";
 }while($run = <$df>);
 
 print $fh <<'END';
@@ -160,7 +133,7 @@ close $fh;
 close $df;
 
 # Run LaTeX compiler to generate PDF
-print"\n------------------------------------------------\n";
+#print"\n------------------------------------------------\n";
 
 system('xelatex -output-directory ' . $repdir . ' ' . $filename);
 
@@ -171,7 +144,7 @@ my $logfile = $file_prefix . ".log";
 my $pdffile = $file_prefix . ".pdf";
 
 system('del ' . $auxfile . ' ' .  $logfile);
-#system('del ' . $filename); #comment this out if you want to keep the .tex file
+system('del ' . $filename); #comment this out if you want to keep the .tex file
 $filename="$repdir$report_name";
 move($pdffile,$filename); # Renames the file
 
