@@ -1,0 +1,66 @@
+\documentclass[final,a4paper,notitlepage,10pt]{report}
+\usepackage[utf8]{inputenc}% inputenc for encoding to utf8
+\usepackage{auto-pst-pdf}% auto-pst-pdf converts pst to pdf
+\usepackage{pst-barcode}% pst-barcode try implement QR code
+\usepackage{dashrule}% dash lines
+\usepackage[paper=a4paper,left=0.7cm,right=0.7cm,top=0.7cm,bottom=0.7cm,noheadfoot] {geometry}% geometry for margins
+
+\setlength\parindent{0pt}
+\fboxsep0pt
+\fboxrule0pt
+
+\begin{document}
+	\thispagestyle{empty}% this page does not have a header
+	\hdashrule[0.5ex]{8cm}{1pt}{5pt 10pt}\\
+	\fbox{\begin{minipage}[c]{\textwidth}
+		\fbox{\begin{minipage}{0.7in}
+			\begin{pspicture}(0.7in, 0.85in)
+				\psbarcode{https://itweb.mst.edu/auth-cgi-bin/cgiwrap/netdb/view-host.pl?host=rt15desktop.managed.mst.edu}{height=0.7 width=0.7}{qrcode}
+			\end{pspicture}
+		\end{minipage}}\hspace{0.1cm}\vspace{0.5cm}
+		\fbox{\begin{minipage}[c]{0.7\textwidth}
+			\ttfamily\small\begin{tabular}{l l}\\
+				\textbf{rt15desktop} (Latitude E6450)\\
+				FXTWK32 \\
+				34:E6:D7:36:29:CD (TX) \\
+				60:57:18:70:AE:CC (WL) \\
+				60:57:18:70:AE:D0 (BT) \\
+			\end{tabular}
+		\end{minipage}}
+	\end{minipage}}
+	\hdashrule[0.5ex]{8cm}{1pt}{5pt 10pt}\\
+	\fbox{\begin{minipage}[c]{\textwidth}
+		\fbox{\begin{minipage}{0.7in}
+			\begin{pspicture}(0.7in, 0.85in)
+				\psbarcode{https://itweb.mst.edu/auth-cgi-bin/cgiwrap/netdb/view-host.pl?host=rt31desktop.managed.mst.edu}{height=0.7 width=0.7}{qrcode}
+			\end{pspicture}
+		\end{minipage}}\hspace{0.1cm}\vspace{0.5cm}
+		\fbox{\begin{minipage}[c]{0.7\textwidth}
+			\ttfamily\small\begin{tabular}{l l}\\
+				\textbf{rt31desktop} (Latitude E7250)\\
+				FZTNK32 \\
+				34:E6:D7:36:96:03 (TX) \\
+				60:57:18:68:89:9A (WL) \\
+				60:57:18:68:89:9E (BT) \\
+			\end{tabular}
+		\end{minipage}}
+	\end{minipage}}
+	\hdashrule[0.5ex]{8cm}{1pt}{5pt 10pt}\\
+	\fbox{\begin{minipage}[c]{\textwidth}
+		\fbox{\begin{minipage}{0.7in}
+			\begin{pspicture}(0.7in, 0.85in)
+				\psbarcode{https://itweb.mst.edu/auth-cgi-bin/cgiwrap/netdb/view-host.pl?host=rt30desktop.managed.mst.edu}{height=0.7 width=0.7}{qrcode}
+			\end{pspicture}
+		\end{minipage}}\hspace{0.1cm}\vspace{0.5cm}
+		\fbox{\begin{minipage}[c]{0.7\textwidth}
+			\ttfamily\small\begin{tabular}{l l}\\
+				\textbf{rt30desktop} (Latitude E5550)\\
+				42PYK32 \\
+				34:E6:D7:38:7D:D8 (TX) \\
+				60:57:18:6F:EE:51 (WL) \\
+				60:57:18:6F:EE:55 (BT) \\
+			\end{tabular}
+		\end{minipage}}
+	\end{minipage}}
+	\hdashrule[0.5ex]{8cm}{1pt}{5pt 10pt}\\
+\end{document}

@@ -13,10 +13,6 @@ use warnings;
 no warnings "uninitialized";  # Don't warn about unitialized variables#
 use strict 'vars';  # Force all variables to have defined scope
 
-#change this if you want to save your file somewhere
-#my $repdir = getdcwd().'\Documents\Github\QR-Code-Generator-Perl\\'; 
-my $repdir = substr(abs_path($0), 0, -12);
-
 our $hostName;
 our $modelNum;
 our $tag;
@@ -26,6 +22,7 @@ our @mac; #The array to store the MAC address
 our @name; #Name the MAC address
 our $qrAddress;
 
+my $repdir = substr(abs_path($0), 0, -12);
 my ($fh, $filename) = tempfile( SUFFIX => '.tex', DIR => $repdir);
 my $report_name = "QR_Lables.pdf";
 my $report_file = "QR_Lables.tex";
@@ -72,18 +69,18 @@ sub body{
 #This uses the "" so I can access the variables from Perl
 print $fh <<"END";
 	\\fbox{\\begin{minipage}[c]{\\textwidth}
-		\\fbox{\\begin{minipage}{0.85in}
-			\\begin{pspicture}(0.85in, 0.95in)
-				\\psbarcode{$qrAddress}{height=0.85 width=0.85}{qrcode}
+		\\fbox{\\begin{minipage}{0.7in}
+			\\begin{pspicture}(0.7in, 0.85in)
+				\\psbarcode{$qrAddress}{height=0.7 width=0.7}{qrcode}
 			\\end{pspicture}
 		\\end{minipage}}\\hspace{0.1cm}\\vspace{0.5cm}
 		\\fbox{\\begin{minipage}[c]{0.7\\textwidth}
-			\\begin{tabular}{l l}\\\\
+			\\ttfamily\\small\\begin{tabular}{l l}\\\\
 				\\textbf{$hostName} ($modelNum)\\\\
 				$tag \\\\
 END
 
-#Prints out the MAC if any
+#Prints out the MAC address
 if($num != 0){ 
 	for(my $i=1; $i <= $num; $i++){
 print $fh <<"END";
@@ -91,7 +88,7 @@ print $fh <<"END";
 END
 	} 
 }
-
+# 
 print $fh <<"END";
 			\\end{tabular}
 		\\end{minipage}}
@@ -99,6 +96,7 @@ print $fh <<"END";
 	\\hdashrule[0.5ex]{8cm}{1pt}{5pt 10pt}\\\\
 END
 }
+#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 #Latex information
 #Header and Begin informtion
@@ -116,6 +114,7 @@ print $fh <<'END';
 
 \begin{document}
 	\thispagestyle{empty}% this page does not have a header
+	\hdashrule[0.5ex]{8cm}{1pt}{5pt 10pt}\\
 END
 
 do{ # This is the loop of the program
@@ -132,8 +131,8 @@ END
 close $fh;
 close $df;
 
-# Run LaTeX compiler to generate PDF
-#print"\n------------------------------------------------\n";
+#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+#Run LaTeX compiler to generate PDF
 
 system('xelatex -output-directory ' . $repdir . ' ' . $filename);
 
@@ -142,10 +141,14 @@ my $file_prefix = substr($filename, 0, -4);
 my $auxfile = $file_prefix . ".aux";
 my $logfile = $file_prefix . ".log";
 my $pdffile = $file_prefix . ".pdf";
+my $texfile = "$repdir$report_file";
+
+move($filename,$texfile); # Renames the .tex file to QR_Lables.tex
 
 system('del ' . $auxfile . ' ' .  $logfile);
-system('del ' . $filename); #comment this out if you want to keep the .tex file
+#system('del ' . $filename); #comment this out if you want to keep the .tex file
 $filename="$repdir$report_name";
-move($pdffile,$filename); # Renames the file
+move($pdffile,$filename); # Renames the PDF file to QR_Lables.pdf
 
 exec($filename); #opens the PDF
+#Note: If you recompile the .tex with M then you will generate .aux and .log files (which you don't really need)
